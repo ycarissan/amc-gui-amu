@@ -1,0 +1,30 @@
+# docker-compose.yml — deploiement local mono-utilisateur d'AMC via navigateur.
+#
+# SECURITE : les deux ports sont publies UNIQUEMENT sur 127.0.0.1 (loopback).
+# Comme le serveur VNC n'a AUCUN mot de passe (choix assume), ne JAMAIS
+# remplacer "127.0.0.1:" par "0.0.0.0:" ni exposer ces ports sur un reseau
+# non maitrise.
+
+services:
+  amc:
+    image: daverc31/amc-gui-amu:latest
+    # Construction locale (le tag ci-dessus sert de nom a l'image construite).
+    # Pour utiliser uniquement l'image publiee sur Docker Hub, commentez ce bloc.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: amc-gui-amu
+    environment:
+      # Resolution de l'affichage virtuel : LARGEURxHAUTEURxPROFONDEUR
+      RESOLUTION: "1920x1080x24"
+      # Aligner sur le proprietaire du dossier hote monte (id -u / id -g)
+      PUID: "1000"
+      PGID: "1000"
+    ports:
+      - "127.0.0.1:6080:6080"   # noVNC — acces navigateur : http://localhost:6080/
+      - "127.0.0.1:5900:5900"   # VNC natif — client lourd : localhost:5900
+    volumes:
+      # Persistance : projets (MC-Projects) + configuration (~/.AMC.d)
+      - ./amc-data:/home/amc
+    shm_size: "512m"
+    restart: unless-stopped
