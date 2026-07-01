@@ -1,3 +1,4 @@
+![Développé avec l'aide de l'IA](https://img.shields.io/badge/D%C3%A9velopp%C3%A9%20avec-l'aide%20de%20l'IA-8A2BE2)
 # amc-gui-amu
 
 **Auto Multiple Choice (AMC)** — la *vraie* interface graphique Perl/Gtk3 —
@@ -72,6 +73,15 @@ docker run -d --name amc-gui-amu `
 ```
 > Sous Windows, `PUID`/`PGID` n'ont pas d'effet utile (geres par Docker Desktop) ;
 > on les omet.
+
+---
+
+### Vérification finale :
+```
+docker buildx imagetools inspect daverc31/amc-gui-amu:1.6.0
+```
+
+→ doit lister linux/amd64 ET linux/arm64.
 
 ---
 
