@@ -13,7 +13,7 @@
 # Pre-requis : etre connecte a Docker Hub -> `docker login -u daverc31`
 set -euo pipefail
 
-IMAGE="${IMAGE:-daverc31/amc-amu-vnc}"
+IMAGE="${IMAGE:-daverc31/amc-gui-amu}"
 AMC_VERSION="${AMC_VERSION:-1.6.0}"
 
 # Tags mobiles a (re)composer
